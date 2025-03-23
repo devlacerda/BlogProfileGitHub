@@ -36,5 +36,5 @@ export const IssuesContainer = styled.div`
 
   p {
     color: ${(props) => props.theme["gray-300"]};
-  }
+  }
 `;

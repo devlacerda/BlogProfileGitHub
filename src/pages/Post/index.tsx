@@ -1,67 +1,63 @@
-import {
-  ArrowUpRight,
-  Calendar,
-  CaretLeft,
-  ChatCircle,
-  GithubLogo,
-} from "phosphor-react";
-import {
-  PostAnchors,
-  PostContainer,
-  PostContent,
-  PostHeader,
-  PostTitle,
-} from "./styles";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { api } from "../../utils/api";
+import { PostContainer, PostHeader, PostContent, BackButton } from "./styles";
 
-import { NavLink } from "react-router-dom";
-import { dateFormatter } from "../../utils/formatter";
 
+
+interface Issue {
+  title: string;
+  body: string;
+  created_at: string;
+  comments: number;
+  user: {
+    login: string;
+  };
+  html_url: string;
+}
 
 export function Post() {
+  const { number } = useParams<{ number: string }>();
+  const [issue, setIssue] = useState<Issue | null>(null);
+  const navigate = useNavigate();
+
+  function handleGoBack() {
+    navigate(-1); 
+  }
+
+  useEffect(() => {
+    async function fetchIssue() {
+      try {
+        const response = await api.get<Issue>(
+          `repos/devlacerda/BlogProfileGitHub/issues/${number}`
+        );
+        setIssue(response.data);
+      } catch (error: any) {
+        console.error("Erro ao buscar a issue:", error.message);
+      }
+    }
+
+    fetchIssue();
+  }, [number]);
+
+  if (!issue) return <p>Carregando post...</p>;
 
   return (
     <PostContainer>
+      <BackButton onClick={handleGoBack}>← Voltar</BackButton>
       <PostHeader>
-        <PostTitle>
-          <div>
-            <p>
-              <NavLink to="/">
-                <a href="">
-                  <CaretLeft size={16} />
-                  VOLTAR
-                </a>
-              </NavLink>
-            </p>
-          </div>
-          <div>
-            <a href="#" target="_blank">
-              VER NO GITHUB
-              <ArrowUpRight size={16} />
-            </a>
-          </div>
-        </PostTitle>
-        <h1></h1>
-        <PostAnchors>
-          <div>
-            <GithubLogo size={18} />
-            <span></span>
-          </div>
-
-          <div>
-            <Calendar size={18} />
-            <span></span>
-          </div>
-
-          <div>
-            <ChatCircle size={18} />
-            <span> comentários</span>
-          </div>
-        </PostAnchors>
+        <h1>{issue.title}</h1>
+        <p>
+          Por: <strong>{issue.user.login}</strong> |{" "}
+          {new Date(issue.created_at).toLocaleDateString()}
+        </p>
+        <a href={issue.html_url} target="_blank" rel="noreferrer">
+          Ver no GitHub
+        </a>
+        <hr />
       </PostHeader>
 
-      <PostContent>
-        <p></p>
-      </PostContent>
+      <PostContent>{issue.body}</PostContent>
     </PostContainer>
-  );
+  );
 }

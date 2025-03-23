@@ -62,6 +62,6 @@ export const SummaryAnchors = styled.div`
 
     & > span {
       color: ${(props) => props.theme["gray-200"]};
-    }
-  }
+    }
+  }
 `;

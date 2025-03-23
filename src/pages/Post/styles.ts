@@ -1,68 +1,66 @@
 import styled from "styled-components";
 
-export const PostContainer = styled.div`
-  max-width: 54rem;
-  width: 100%;
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
+export const PostContainer = styled.main`
+  max-width: 864px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: #112131;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
 `;
 
-export const PostHeader = styled.div`
-  width: 100%;
-  padding: 2rem;
-  background-color: ${(props) => props.theme["blue-700"]};
-  box-shadow: 0 0 15px ${(props) => props.theme["blue-900"]};
-  margin-top: -6.25rem;
+export const BackButton = styled.button`
+  background: transparent;
+  border: none;
+  color: #ffff;
+  font-size: 0.875rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
 
-  display: flex;
-  flex-direction: column;
-
-  & > h1 {
-    font-size: 1.5rem;
-    color: ${(props) => props.theme["gray-100"]};
-    margin-bottom: 0.5rem;
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
-export const PostTitle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
+export const PostHeader = styled.header`
+  margin-bottom: 2rem;
 
-  & > div a {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
+  h1 {
+    font-size: 2rem;
+    color: #ffff;
+  }
+
+  p {
     font-size: 0.875rem;
+    color: #ffff;
+    margin-top: 0.25rem;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #ffff;
     text-decoration: none;
-    color: ${(props) => props.theme["blue-400"]};
     font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  hr {
+    margin-top: 1.5rem;
+    border: none;
+    height: 1px;
+    background-color: #ffff;
   }
 `;
 
-export const PostAnchors = styled.div`
-  display: flex;
-  gap: 2rem;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    & > svg {
-      color: ${(props) => props.theme["gray-500"]};
-    }
-
-    & > span {
-      color: ${(props) => props.theme["gray-400"]};
-    }
-  }
-`;
-
-export const PostContent = styled.div`
-  padding: 2.5rem 2rem;
-  text-align: justify;
+export const PostContent = styled.section`
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #ffff;
+  white-space: pre-wrap;
 `;
