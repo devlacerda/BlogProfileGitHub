@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../../../src/utils/api";
 import { dateFormatter } from "../../../../../src/utils/formatter";
-import { IssuesContainer, StyledNavLink } from "./styles";
+import {IssuesGrid, IssueCard, StyledNavLink } from "./styles";
 
 interface Issue {
   id: number;
@@ -37,16 +37,18 @@ export function Issues() {
   }
 
   return (
-    <IssuesContainer>
+    <IssuesGrid>
       {issues.map((issue) => (
-        <StyledNavLink key={issue.id} to={`/issue/${issue.number}`}>
-          <div>
-            <h2>{issue.title}</h2>
-            <span>{dateFormatter.format(new Date(issue.created_at))}</span>
-          </div>
-          <p>{issue.body.substring(0, 140)}...</p>
-        </StyledNavLink>
+        <IssueCard key={issue.id}>
+          <StyledNavLink to={`/issue/${issue.number}`}>
+            <div>
+              <h2>{issue.title}</h2>
+              <span>{dateFormatter.format(new Date(issue.created_at))}</span>
+            </div>
+            <p>{issue.body.substring(0, 140)}...</p>
+          </StyledNavLink>
+        </IssueCard>
       ))}
-    </IssuesContainer>
-  );
+    </IssuesGrid>
+  );
 }

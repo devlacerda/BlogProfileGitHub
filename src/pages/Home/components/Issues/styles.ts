@@ -5,14 +5,25 @@ export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
 `;
 
-export const IssuesContainer = styled.div`
-  max-width: 26rem;
-  height: 16.25rem;
+export const IssuesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
   width: 100%;
-  overflow: hidden;
+  max-width: 80rem;
+  margin: 0 auto;
+`;
+
+export const IssueCard = styled.div`
   background-color: ${(props) => props.theme["blue-600"]};
   padding: 2rem;
   border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.02);
+  }
 
   div {
     display: flex;
@@ -36,5 +47,5 @@ export const IssuesContainer = styled.div`
 
   p {
     color: ${(props) => props.theme["gray-300"]};
-  }
+  }
 `;
